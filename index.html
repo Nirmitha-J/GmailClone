@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Gmail API Quickstart</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-light sticky-top bg-light flex-md-nowrap p-0 shadow" id="navbarTop">
+        <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="#"><img height="30px" weight="30px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAA+VBMVEX//////vntQzXMzL6mMyr5+fn8/Pzq6ury8vLh4eG0tLTX19fLy8u9vb35+fSlLiTnamLuPzDT2tuvYFyuYFbO0sTxeXCjpKS2NyzsOirvV0uvSUGlr7DuSj3pTECmPjepOzPsMiD84Nr6zMXOwrTq6N/+9O796+XxcWbygXf719DwaF35wbrVqZvNyLrX18vdw8HziYD3r6fsKxfblYfeh3rTsaPk4tfvXlP1oZn3s6vhe27YnpDicmXdi37gfXDzzMrm0tD2nJPSnJa8b2rbuLXz4eC0Vk7Ki4WhGwuiJRnqsq3rjoewVUu3fXnFsK+7nZuvjIqoYFsrzjWaAAAIwUlEQVR4nO2da0PaSBSGh6CCotC01d3oQgELXhdXXAvauvVW27q2u+3//zE7l4SGZDKZCXNLd55vvSDz+E5O5pxgC4DD4XA4HA6Hw+FwOBwOh8PhcDgcDofD4XD8n1kpL0Jyy6UiFMzTxH9e719fX+/uXq88mF61CDd/YG7qTEeUW/14a9ppQzq3p5cVUCkFoHm3s9RFfLz/UF9ZzlJEgg/77c42obPtne6VQhHcvOzuhLzqvnhYzlBEgtfTyC+U3DW9+nxQgHG6H2/grqUoIsHaPhLEmzTEu7V9p8IAW90foBhf1mgpQsF6/bYN9bw5gu1DmxXB8NPn1lIc6Nj9VK+nFVGReYD5eUn89ti0Rjbg8OPjUpJXOzur9dQ+xRH+3U4LQnoH1hacce/XlCCMsfshHSISrD21aYJwp3asLDhgbz/waYZL3U81pJg2PKALwp0aXNhXcMBuJ/A8quHSPdWwtrrlZyl6vU7fLkUwPOih5VINW/ertYThSp4hLDiXpqXigMOjAK+LZbiS3KTPnzEMPd+qgjMOwrXSDV+sJrcpjpBtiG6Nx3Yogv5WEC0qw/B5cptyGcIYxzYUHLDbnglKNoQFZ2q84IDh6VlsnbINYcE5Nix4OA3iC5JuiArO0GCM4MKfX6R8Q1RwjJ1w4iVGoaHn+xfASIzkFKPBEBacIwMFJ1Fi1BqaKDigP00FqNAQFpxTzQXnIqCuTpkhbv716aFGib4MhYae713oShEcb2cIKjXUVnDAHq3EaDGEzb+GgjNrlEwYwoLzpLzgjOklRpOh+oKzxwpQiyEsOGN1KTJKjD5DhQUHnmJ6eUvSYqiq+WeXGK2Gnn92q6DgjHMD1GcIY5xKfryRfYoxZAgLzqVMRVqjZNgQFRxp08Zo3GuZISo4kgR5SoxEw06bV1zWCYd9ipkjkGDob+UdK+JveLRwwaHMYhjvd/5FhiEYPmWf7ZN/21/w1jg37s19sz83X7ZkGMK3zTs8/aC3v0DBoc9iMgievd6UZQi3zgH/Ti0+bUyOe1n43vmoWpVmSBnFMt47eCr2eEPgPWBr+mazKtUQxqi44AiVGP/tayQo1VDoGgnawicc7lOMh0tMlSDVUKzOnW0JFRzhEqPGUGgjCTX/GeNeKrDEVGfINoQFJGMwS3thwP+JMf6vCr9zv28qNBQ7MwZ8zT/o8zVKZDlvRzFBFYbwitniPffzFZz8WUxsMb131TlUGKIlcRcc/yzvAxzMcW+SWIlRaih2a5wyTzgim56cYrQYooLDfxbvXTAMRRqluRKj2BDdGvnLezDdy/AT6Ms8/yoVoFJDeP1s9bgVO9SWSqjEBO8ofkoN4QIvBZr/dMHhGffOSJcYHYaVSp8/g+BoN3HTESkx/l+0HarBEAxvuWNIfmKMa9xLoJYYPYYQgeY/2J+dcHjHvWQBbzN2qB5DeOLiLzjtsOAUa5QMGaLG3BMoOEMgMu6FLzliBKjJsFI5FCk4h5JKjFZDkbrv+6cCs5jtN8wAtRlCjrlvjZ7AuPc9e4dqNYRnce6Cwwka9+b5aTSsAJFJIA+ZpxhThhWhW2MutEbJvKHQXYBNOO61zRDCfxZnwjzFmDUE/e3FC07OKcasIWr+F92pnCXGlKFYW0t7t/i4105D3PwXjpHVKFljCBkXLTiJca+9hqDP/wQn/k7Jca+9hrDg3PJPCSPESoxhwwo6i4vFyH2KscYQ9PmnjV6BEmPeEHLBX3Do417rDbkfGWeNe603RM0/T8EpVGLsMIQc53aN+bMYuw1zp41FS4w1hpXKkNn8CzRK1hqyHhkLNUr2GsITTsZnVPLGvaUxhFxS5uKLlRjbDEF/miw4HOPeMhmiB3Hzt0aecW+pDFHBiY27+ca9JTNEHzWKFBc5xVhsCCEP4go2SmUwBE30II5/3Fs6w+ZktHny5C14irHXEAxO4N4cbR4O5PlZZQgDHFVHo5MmqDRPfkZDEmB1EP7q5zOMAox+LS1GSwyb1XiABEkx2mE4IYLN+d+VE6MNhrQACTJitMCQBHjSpP2ZhBiNGzZxCR1Nsv1LbhgGSNmhP74FZTaMAqTu0Nh3obSGgxEJMO/lC8Vo0DAMkF5iEn91gRjNGQ4y7xH0b0fZDHGAWfcI6guKxmjIkAQ44gwwek15DGGAI84rcI5CMZowFLsC515ZoPfXb1g0QIJ4wdFuGAaYeUrLfb1ojJoNcYDpPkkE0fuGXkNyiCkeYPhVrDWUEGD0hew0DO+BCwYYfS37DMMAWX2SCPwxajIEUYAL79AZvDHqMYyuwNw+SQTOGLUYDvj7JCG4YtRgiKf1xU5pefDEqN4QX4EifZIQ+TEqNyQBivVJIuTGqNiwqTRAQk6Mag0nBRpdcdgxqjQUnlQUhhWjQsNJ4UZXHEaMygzDAPUIVhgTDlWGEyl9kghZMaox1B0ggR6jEkPS6Mrpk0SgxqjA0EyABEqM8g3DPknDPYJGU7mhyQAJyRglG5oNMFzDiTrDWaNr0A8xWcDwimWotk8SIR5jhuF9huE57SP1xDAMUPUxm4/YfYNu+PiVbtj4QPvxFmyI74FWBEhosv91z8d/GnTD9Sllm0JDW67AGNEjVaph68s6zbBea6zfUQ11NLriDBiG/zYaqf/DMgzxnPKDH882dR+z+cAx0gxbX8MI44bRNt14n/pZemho2Q6dMaAZtj5/3UhvUrJNVxtQ8W4azP+sGTa0LsCQScKw1Xr88g0KNlbp/+MxCnFj7e5q2olzVa0OmrYy+N59FWPn+7e1jXUcYcoQbdNQce23eX6xmbmVrkE28B5NXYYoRHQlQkXouLFWVuDaUYLoKkxESELEisSxrKyja5Ds0aRhqIgdoWRJaWA/uiBWJDFiyXKCFo/80ns0pghzxJalpIbyQ9cgVZAoIkdsWUbw2pezBZEiciSS5WQZ+2UKEsdQs5SQ5TP85jRLSb6cw+FwOBwOh8PhcDgcDofD4XA4HA6Hw+Fw/MT8BzJ9cVLkS1igAAAAAElFTkSuQmCC">&nbsp&nbspGmail</a>
+        </a>
+        <button class="navbar-toggler position-absolute d-md-none collapsed" type="button" data-toggle="collapse" data-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <ul class="navbar-nav px-3">
+            <li class="nav-item text-nowrap">
+                <button class="btn btn-info my-2 my-sm-0" onclick="signoutDisplay()" id="signout_button" style="display: none;" type="submit">Sign out</button>
+            </li>
+        </ul>
+    </nav>
+
+
+    <div class="border border-light p-3 mb-4">
+
+        <div>
+            <center>
+                <button id="authorize_button" style="display: none;" class="btn btn-info" onclick="authorize()">Login In</button>
+            </center>
+        </div>
+
+    </div>
+
+    <a href="#compose-modal" data-toggle="modal" id="compose-button" class="btn btn-primary pull-right hidden"><span class="iconify" data-icon="feather:plus"></span>Compose</a>
+    <div class="modal fade" id="compose-modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+                    <h4 class="modal-title">Compose</h4>
+                </div>
+                <form onsubmit="return sendEmail();">
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="email" class="form-control" id="compose-to" placeholder="To" required />
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" class="form-control" id="compose-subject" placeholder="Subject" required />
+                        </div>
+
+                        <div class="form-group">
+                            <textarea class="form-control" id="compose-message" placeholder="Message" rows="10" required></textarea>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="submit" id="send-button" class="btn btn-primary">Send</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row" style="display: none" id="labelsList">
+        <div class="col-md-2">
+            <div class="sidebar-sticky pt-3">
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#" onclick="inbox()">
+                            <span class="iconify" data-icon="feather:inbox" data-inline="false"></span> Inbox <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="drafts()">
+                            <span class="iconify" data-icon="feather:file"></span> Drafts
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" onclick="sent()">
+                            <span class="iconify" data-icon="feather:send"></span> Sent
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="col-md-10">
+            <div id="inboxList">
+                <h5 id="primary"></h5>
+                <table class="table table-hover">
+                    <tbody id="listElements">
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="draftList">
+                <h5 id="primary"></h5>
+                <table class="table table-hover">
+                    <tbody id="draftlistElements">
+                    </tbody>
+                </table>
+            </div>
+
+            <div id="sentList">
+                <h5 id="primary"></h5>
+                <table class="table table-hover">
+                    <tbody id="sentlistElements">
+                    </tbody>
+                </table>
+            </div>
+
+
+            <div id="inboxView">
+
+            </div>
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+    <pre id="content" style="white-space: pre-wrap;"></pre>
+
+    <script type="text/javascript">
+        // Client ID and API key from the Developer Console
+        var CLIENT_ID = '694732746856-pi55eotbiu8j6bj7bimlk0t725vbf2he.apps.googleusercontent.com';
+        var API_KEY = 'AIzaSyBP3TdBDEEWIvnNEvWSUNIrwTJHV6SOsx0';
+
+        // Array of API discovery doc URLs for APIs used by the quickstart
+        var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/gmail/v1/rest"];
+
+        // Authorization scopes required by the API; multiple scopes can be
+        // included, separated by spaces.
+        var SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://mail.google.com/', 'https://www.googleapis.com/auth/gmail.modify', 'https://www.googleapis.com/auth/gmail.compose', 'https://www.googleapis.com/auth/gmail.send'];
+
+        var authorizeButton = document.getElementById('authorize_button');
+        var signoutButton = document.getElementById('signout_button');
+
+        /**
+         *  On load, called to load the auth2 library and API client library.
+         */
+        function handleClientLoad() {
+            gapi.load('client:auth2', initClient);
+        }
+
+        /**
+         *  Initializes the API client library and sets up sign-in state
+         *  listeners.
+         */
+        function initClient() {
+            gapi.client.init({
+                apiKey: API_KEY,
+                clientId: CLIENT_ID,
+                discoveryDocs: DISCOVERY_DOCS,
+                scope: SCOPES.join(' ')
+            }).then(function() {
+                // Listen for sign-in state changes.
+                gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+
+                // Handle the initial sign-in state.
+                updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+                authorizeButton.onclick = handleAuthClick;
+                signoutButton.onclick = handleSignoutClick;
+            }, function(error) {
+                appendPre(JSON.stringify(error, null, 2));
+            });
+        }
+
+        /**
+         *  Called when the signed in status changes, to update the UI
+         *  appropriately. After a sign-in, the API is called.
+         */
+        function updateSigninStatus(isSignedIn) {
+            if (isSignedIn) {
+                authorizeButton.style.display = 'none';
+                signoutButton.style.display = 'block';
+                document.getElementById('labelsList').style.display = "flex";
+                document.getElementById('compose-button').style.display = "inline-block";
+                document.getElementById('navbarTop').style.display = "flex";
+                inbox();
+
+            } else {
+                authorizeButton.style.display = 'block';
+                signoutButton.style.display = 'none';
+                document.getElementById('labelsList').style.display = "none";
+                document.getElementById('compose-button').style.display = "none";
+                document.getElementById('navbarTop').style.display = "none"
+            }
+        }
+
+
+        /**
+         *  Sign in the user upon button click.
+         */
+        function handleAuthClick(event) {
+            gapi.auth2.getAuthInstance().signIn();
+        }
+
+        /**
+         *  Sign out the user upon button click.
+         */
+        function handleSignoutClick(event) {
+            gapi.auth2.getAuthInstance().signOut();
+        }
+
+        /**
+         * Append a pre element to the body containing the given message
+         * as its text node. Used to display the results of the API call.
+         *
+         * @param {string} message Text to be placed in pre element.
+         */
+        function appendPre(message) {
+            var pre = document.getElementById('content');
+            var textContent = document.createTextNode(message + '\n');
+            pre.appendChild(textContent);
+        }
+
+        function signoutDisplay() {
+            let labelsList = document.getElementById('labelsList');
+            labelsList.innerHTML = ''
+        }
+
+        function sendEmail() {
+            $('#send-button').addClass('disabled');
+
+            sendMessage({
+                    'To': $('#compose-to').val(),
+                    'Subject': $('#compose-subject').val()
+                },
+                $('#compose-message').val(),
+                composeTidy
+            );
+
+            return false;
+        }
+
+        function sendMessage(headers_obj, message, callback) {
+            var email = '';
+
+            for (var header in headers_obj)
+                email += header += ": " + headers_obj[header] + "\r\n";
+
+            email += "\r\n" + message;
+
+            var sendRequest = gapi.client.gmail.users.messages.send({
+                'userId': 'me',
+                'resource': {
+                    'raw': window.btoa(email).replace(/\+/g, '-').replace(/\//g, '_')
+                }
+            });
+
+            return sendRequest.execute(callback);
+        }
+
+        function composeTidy() {
+            $('#compose-modal').modal('hide');
+
+            $('#compose-to').val('');
+            $('#compose-subject').val('');
+            $('#compose-message').val('');
+
+            $('#send-button').removeClass('disabled');
+        }
+
+        function inbox() {
+            let listElemnts = document.getElementById("listElements");
+            listElemnts.style.display = 'block'
+
+            let draftlistElements = document.getElementById("draftlistElements");
+            draftlistElements.style.display = 'none'
+
+            let inboxList = document.getElementById("inboxList");
+            inboxList.style.display = "block";
+            let inboxView = document.getElementById("inboxView");
+            inboxView.innerHTML = '';
+
+
+            gapi.client.gmail.users.messages.list({
+                'userId': 'nirmithaj94@gmail.com',
+                'labelIds': 'INBOX'
+            }).then((response) => {
+
+                for (var i = 0; i < response.result.messages.length; i++) {
+                    gapi.client.gmail.users.messages.get({
+                        'userId': 'nirmithaj94@gmail.com',
+                        'id': response.result.messages[i].id
+                    }).then((response) => {
+                        let sub = response.result.payload.headers.filter(elem => {
+                            return elem.name === "Subject";
+                        })
+
+                        let date = response.result.payload.headers.filter(elem => {
+                            return elem.name === "Date";
+                        })
+
+                        let from = response.result.payload.headers.filter(elem => {
+                            return elem.name === "From";
+                        })
+                        let dateconvert = new Date(date[0].value).getDate() + "/" + new Date(date[0].value).getMonth() + "/" + new Date(date[0].value).getFullYear();
+
+                        let table = document.getElementById("listElements")
+                        let elem = document.createElement("tr");
+                        elem.addEventListener('click', function() {
+                            returnHtml(response.result);
+                        })
+                        let td1 = document.createElement("td");
+                        let td2 = document.createElement("td");
+                        let td3 = document.createElement("td");
+                        td1.style.width = '33%';
+                        td2.style.width = '33%';
+                        td3.style.width = '33%';
+                        td1.innerText = from[0].value;
+                        td2.innerText = sub[0].value;
+                        td3.innerText = dateconvert;
+                        elem.append(td1);
+                        elem.append(td2);
+                        elem.append(td3);
+                        table.append(elem);
+                        document.getElementById("primary").innerText = 'Primary'
+                    })
+                }
+            })
+        }
+
+        function sendEmail() {
+            $('#send-button').addClass('disabled');
+
+            sendMessage({
+                    'To': $('#compose-to').val(),
+                    'Subject': $('#compose-subject').val()
+                },
+                $('#compose-message').val(),
+                composeTidy
+            );
+
+            return false;
+        }
+
+        function sendMessage(headers_obj, message, callback) {
+            var email = '';
+
+            for (var header in headers_obj)
+                email += header += ": " + headers_obj[header] + "\r\n";
+
+            email += "\r\n" + message;
+
+            var sendRequest = gapi.client.gmail.users.messages.send({
+                'userId': 'me',
+                'resource': {
+                    'raw': window.btoa(email).replace(/\+/g, '-').replace(/\//g, '_')
+                }
+            });
+
+            return sendRequest.execute(callback);
+        }
+
+        function composeTidy() {
+            $('#compose-modal').modal('hide');
+
+            $('#compose-to').val('');
+            $('#compose-subject').val('');
+            $('#compose-message').val('');
+
+            $('#send-button').removeClass('disabled');
+        }
+
+        function returnHtml(data) {
+
+            console.log(data);
+
+            let inboxList = document.getElementById("inboxList");
+            inboxList.style.display = "none";
+
+            let inboxView = document.getElementById("inboxView");
+            inboxView.innerHTML = '';
+            inboxView.setAttribute('class', 'container')
+
+            let h5 = createElement('h5');
+            h5.style.color = 'grey';
+            // h5.style.textAlign = 'center'
+            let string = data.payload.headers.filter((item) => {
+                return item.name === 'Subject';
+            });
+            let from = data.payload.headers.filter((item) => {
+                return item.name === 'From';
+            });
+            h5.innerText = "Subject: " + string[0].value;
+
+            let p = createElement('p');
+            p.innerText = "From: " + from[0].value
+
+            let divCon = createElement('div');
+
+            divCon.innerText = data.payload.parts ? (window.atob(data.payload.parts[0].body.data) ? window.atob(data.payload.parts[0].body.data) : (data.snippet)) : ''
+
+            inboxView.append(h5, p);
+            inboxView.append(divCon);
+
+
+        }
+
+        function createElement(elem, elemclass = '', elemid = '') {
+            let elem1 = document.createElement(elem);
+            elem1.setAttribute('class', elemclass);
+            elem1.setAttribute('id', elemid);
+            return elem1;
+        }
+
+        function drafts() {
+            let draftlistElements = document.getElementById("draftlistElements");
+            draftlistElements.style.display = 'block'
+            let listElemnts = document.getElementById("listElements");
+            listElemnts.style.display = 'none'
+            let inboxList = document.getElementById("inboxList");
+            inboxList.style.display = "block";
+            let inboxView = document.getElementById("inboxView");
+            inboxView.style.display = "block";
+            let sent = document.getElementById("sentlistElements");
+            sent.style.display = "none";
+            // inboxList.innerHTML = '';
+
+
+            gapi.client.gmail.users.drafts.list({
+                'userId': 'nirmithaj94@gmail.com'
+            }).then((response) => {
+                console.log(response)
+                for (var i = 0; i < response.result.drafts.length; i++) {
+                    gapi.client.gmail.users.messages.get({
+                        'userId': 'nirmithaj94@gmail.com',
+                        'id': response.result.drafts[i].message.id
+                    }).then((response) => {
+                        let sub = response.result.payload.headers.filter(elem => {
+                            return elem.name === "Subject";
+                        })
+
+                        let date = response.result.payload.headers.filter(elem => {
+                            return elem.name === "Date";
+                        })
+
+                        let from = response.result.payload.headers.filter(elem => {
+                            return elem.name === "From";
+                        })
+                        let dateconvert = new Date(date[0].value).getDate() + "/" + new Date(date[0].value).getMonth() + "/" + new Date(date[0].value).getFullYear();
+                        let table = document.getElementById("draftlistElements")
+                        let elem = document.createElement("tr");
+                        let td1 = document.createElement("td");
+                        let td2 = document.createElement("td");
+                        let td3 = document.createElement("td");
+                        td1.style.color = 'red';
+                        td1.innerText = 'Draft';
+                        td2.innerText = sub[0].value ? sub[0].value : '(no subject)';
+                        td3.innerText = dateconvert;
+                        td1.style.width = '33%';
+                        td2.style.width = '33%';
+                        td3.style.width = '33%';
+                        elem.append(td1)
+                        elem.append(td2);
+                        elem.append(td3);
+                        table.append(elem);
+                        document.getElementById("primary").innerText = ''
+
+                    })
+                }
+            })
+        }
+
+
+
+
+        function sent() {
+            let sent = document.getElementById("sentlistElements");
+            sent.style.display = "block";
+            let listElemnts = document.getElementById("listElements");
+            listElemnts.style.display = 'none';
+            let draftsList = document.getElementById("draftlistElements");
+            draftsList.style.display = "none";
+
+            let inboxList = document.getElementById("inboxList");
+            inboxList.style.display = "block";
+
+
+            // let listElements = document.getElementById("listElements");
+            // if (listElements !== null) {
+            //     listElements.innerHTML = ''
+            // }
+
+            let draftlistElements = document.getElementById("draftlistElements")
+            draftlistElements.innerHTML = '';
+
+            gapi.client.gmail.users.messages.list({
+                'userId': 'nirmithaj94@gmail.com',
+                'labelIds': 'SENT'
+            }).then((response) => {
+                // console.log(response)
+                for (var i = 0; i < response.result.messages.length; i++) {
+                    gapi.client.gmail.users.messages.get({
+                        'userId': 'nirmithaj94@gmail.com',
+                        'id': response.result.messages[i].id,
+                    }).then((response) => {
+
+                        let sub = response.result.payload.headers.filter(elem => {
+                            return elem.name === "Subject";
+                        })
+
+                        let date = response.result.payload.headers.filter(elem => {
+                            return elem.name === "Date";
+                        })
+
+                        let from = response.result.payload.headers.filter(elem => {
+                            return elem.name === "To";
+                        })
+                        let dateconvert = new Date(date[0].value).getDate() + "/" + new Date(date[0].value).getMonth() + "/" + new Date(date[0].value).getFullYear();
+                        let table = document.getElementById("sentlistElements")
+                        let elem = document.createElement("tr");
+                        let td1 = document.createElement("td");
+                        let td2 = document.createElement("td");
+                        let td3 = document.createElement("td");
+                        td1.style.width = '33%';
+                        td2.style.width = '33%';
+                        td3.style.width = '33%';
+                        td1.innerText = "To:" + from[0].value;
+                        td2.innerText = sub[0].value ? sub[0].value : '(no subject)';
+                        td3.innerText = dateconvert;
+                        elem.append(td1)
+                        elem.append(td2);
+                        elem.append(td3);
+                        table.append(elem);
+                        document.getElementById("primary").innerText = ''
+
+                    })
+                }
+            })
+        }
+
+
+
+
+
+        // function compose() {
+
+        //     // var request = gapi.client.gmail.users.messages.send({
+        //     //     'userId': userId,
+        //     //     'resource': {
+        //     //         'raw': base64EncodedEmail
+        //     //     }
+        //     // });
+        //     // let email = "nirmithaj94@gmail.com"
+        //     // gapi.client.gmail.users.messages.send({
+        //     //     'userId': 'nirmithaj94@gmail.com',
+        //     //     "payload": {
+        //     //         "headers": [{
+        //     //             "name": "To",
+        //     //             "value": "bmlybWl0aGFqOTRAZ21haWwuY29t"
+        //     //         }]
+        //     //     },
+        //     //     'raw': 'bmlybWl0aGFqOTRAZ21haWwuY29t'
+        //     // }).then((data) => {
+        //     //     console.log(data + "compose")
+        //     // })
+
+
+
+
+        //     let email = "nirmithaj94@gmail.com"
+        //     gapi.client.gmail.users.messages.send({
+        //         'userId': 'nirmithaj94@gmail.com',
+        //         'resource': {
+        //             'raw': window.btoa("hhhehe  eehhhe   ehhh eeeehh ehhhhe hhheheehhh hhk").replace(/\+/g, '-').replace(/\//g, '_')
+        //         }
+        //     }).then((data) => {
+        //         console.log(data + "compose")
+        //     })
+
+        // }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns" crossorigin="anonymous"></script>
+
+    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()" onreadystatechange="if (this.readyState === 'complete') this.onload()">
+    </script>
+</body>
+
+</html>
